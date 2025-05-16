@@ -84,9 +84,73 @@ const MobileButton = styled.button`
   }
 `;
 
+const MobileMenu = styled.div<{ isOpen: boolean }>`
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 70%;
+  height: 100vh;
+  background: var(--background-color);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  padding: 2rem;
+  transform: ${({ isOpen }) => isOpen ? 'translateX(0)' : 'translateX(100%)'};
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+  
+  @media (min-width: 769px) {
+    display: none;
+  }
+`;
+
+const MobileNav = styled.nav`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 3rem;
+`;
+
+const MobileNavLink = styled.a<{ $isActive?: boolean }>`
+  color: ${props => props.$isActive ? 'var(--primary-color)' : 'var(--text-color)'};
+  font-size: 1.2rem;
+  font-weight: ${props => props.$isActive ? '600' : '500'};
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+`;
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.8rem;
+  color: var(--text-color);
+  background: none;
+  border: none;
+`;
+
+const Overlay = styled.div<{ isOpen: boolean }>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 999;
+  opacity: ${({ isOpen }) => isOpen ? 1 : 0};
+  visibility: ${({ isOpen }) => isOpen ? 'visible' : 'hidden'};
+  transition: opacity 0.3s ease;
+  
+  @media (min-width: 769px) {
+    display: none;
+  }
+`;
+
 function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   useEffect(() => {
     const handleScroll = () => {
@@ -119,29 +183,54 @@ function Header() {
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
     }
+    setMobileMenuOpen(false);
   };
 
   return (
-    <HeaderContainer style={{ 
-      padding: scrolled ? '1rem 0' : '1.5rem 0',
-      backgroundColor: scrolled ? 'rgba(10, 17, 40, 0.9)' : 'rgba(10, 17, 40, 0.7)'
-    }}>
-      <NavContainer>
-        <Logo href="#hero" onClick={(e) => { e.preventDefault(); scrollToSection('hero'); }}>
-          <span>{'</'}</span>Nazar
-        </Logo>
-        <Nav>
-          <NavLink 
+    <>
+      <HeaderContainer style={{ 
+        padding: scrolled ? '1rem 0' : '1.5rem 0',
+        backgroundColor: scrolled ? 'rgba(10, 17, 40, 0.9)' : 'rgba(10, 17, 40, 0.7)'
+      }}>
+        <NavContainer>
+          <Logo href="#hero" onClick={(e) => { e.preventDefault(); scrollToSection('hero'); }}>
+            <span>{'</'}</span>Nazar
+          </Logo>
+          <Nav>
+            <NavLink 
+              href="#about" 
+              $isActive={activeSection === 'about'} 
+              onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}
+            >
+              Обо мне
+            </NavLink>
+          </Nav>
+          <MobileButton onClick={() => setMobileMenuOpen(true)}>☰</MobileButton>
+        </NavContainer>
+      </HeaderContainer>
+      
+      <Overlay isOpen={mobileMenuOpen} onClick={() => setMobileMenuOpen(false)} />
+      
+      <MobileMenu isOpen={mobileMenuOpen}>
+        <CloseButton onClick={() => setMobileMenuOpen(false)}>×</CloseButton>
+        <MobileNav>
+          <MobileNavLink 
+            href="#hero" 
+            $isActive={activeSection === 'hero'} 
+            onClick={(e) => { e.preventDefault(); scrollToSection('hero'); }}
+          >
+            Главная
+          </MobileNavLink>
+          <MobileNavLink 
             href="#about" 
             $isActive={activeSection === 'about'} 
             onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}
           >
             Обо мне
-          </NavLink>
-        </Nav>
-        <MobileButton>☰</MobileButton>
-      </NavContainer>
-    </HeaderContainer>
+          </MobileNavLink>
+        </MobileNav>
+      </MobileMenu>
+    </>
   );
 }
 

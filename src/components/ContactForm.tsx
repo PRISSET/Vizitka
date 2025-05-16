@@ -31,6 +31,7 @@ const ContactContent = styled.div`
   
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
+    gap: 2.5rem;
   }
 `;
 
@@ -42,11 +43,20 @@ const ContactInfo = styled(motion.div)`
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 2rem;
   
+  @media (max-width: 480px) {
+    padding: 1.5rem;
+  }
+  
   h3 {
     font-size: 1.8rem;
     margin-bottom: 2rem;
     position: relative;
     color: var(--text-color);
+    
+    @media (max-width: 480px) {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
     
     &:after {
       content: '';
@@ -56,6 +66,11 @@ const ContactInfo = styled(motion.div)`
       width: 50px;
       height: 3px;
       background-color: var(--primary-color);
+      
+      @media (max-width: 768px) {
+        left: 50%;
+        transform: translateX(-50%);
+      }
     }
   }
   
@@ -63,6 +78,14 @@ const ContactInfo = styled(motion.div)`
     margin-bottom: 2rem;
     line-height: 1.8;
     color: var(--light-text-color);
+    
+    @media (max-width: 480px) {
+      margin-bottom: 1.5rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    text-align: center;
   }
 `;
 
@@ -70,6 +93,16 @@ const ContactItem = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 1.5rem;
+  
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
+  
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+  }
   
   .icon {
     width: 50px;
@@ -82,6 +115,12 @@ const ContactItem = styled.div`
     margin-right: 1rem;
     font-size: 1.5rem;
     color: var(--primary-color);
+    
+    @media (max-width: 480px) {
+      width: 40px;
+      height: 40px;
+      margin-right: 0;
+    }
   }
   
   .text {
@@ -89,6 +128,11 @@ const ContactItem = styled.div`
       font-size: 1.1rem;
       margin-bottom: 0.3rem;
       color: var(--text-color);
+      
+      @media (max-width: 480px) {
+        font-size: 1rem;
+        margin-bottom: 0.2rem;
+      }
     }
     
     p {
@@ -102,6 +146,10 @@ const SocialLinks = styled.div`
   display: flex;
   gap: 1rem;
   margin-top: 2rem;
+  
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
   
   a {
     display: inline-flex;

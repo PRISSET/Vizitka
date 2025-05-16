@@ -257,27 +257,8 @@ const SocialButtonsContainer = styled.div`
   }
 `;
 
-// Добавляем анимированные декоративные элементы
-const FloatingIcon = styled(motion.div)`
-  position: absolute;
-  font-size: 1.5rem;
-  color: rgba(255, 255, 255, 0.2);
-  pointer-events: none;
-  user-select: none;
-  z-index: 0;
-`;
-
 function App() {
   const [loading, setLoading] = useState(true);
-
-  // Декоративные элементы (иконки технологий, которые будут плавать в карточке)
-  const techIcons = [
-    { icon: "⚛️", top: "10%", left: "5%", delay: 0 },
-    { icon: "🌐", top: "20%", right: "8%", delay: 1.5 },
-    { icon: "📱", bottom: "15%", left: "10%", delay: 2.5 },
-    { icon: "💻", bottom: "25%", right: "7%", delay: 3.5 },
-    { icon: "🔧", top: "45%", left: "85%", delay: 4.5 }
-  ];
 
   useEffect(() => {
     // Simulate loading time
@@ -299,26 +280,6 @@ function App() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              {/* Декоративные плавающие иконки */}
-              {techIcons.map((item, index) => (
-                <FloatingIcon
-                  key={index}
-                  style={{ top: item.top, left: item.left, right: item.right, bottom: item.bottom }}
-                  animate={{
-                    y: [0, -15, 0],
-                    opacity: [0.2, 0.3, 0.2]
-                  }}
-                  transition={{
-                    duration: 5,
-                    delay: item.delay,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                >
-                  {item.icon}
-                </FloatingIcon>
-              ))}
-              
               <ProfileHeader>
                 <AvatarContainer>
                   <AvatarBorder 

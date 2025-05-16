@@ -44,66 +44,6 @@ const StarField = styled.div`
   .star:nth-child(15) { top: 20%; left: 5%; width: 2px; height: 2px; animation-delay: 2.9s; }
 `;
 
-const ParallaxLayer = styled.div<{ depth: number }>`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: ${props => props.depth};
-  pointer-events: none;
-`;
-
-const FloatingElement = styled(motion.div)`
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  z-index: 1;
-  
-  &.planet {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, #8a9bd1, #3a4a8c);
-    opacity: 0.8;
-    top: 15%;
-    right: 10%;
-    animation: floatY 8s infinite ease-in-out;
-    box-shadow: 0 0 20px rgba(58, 74, 140, 0.7);
-  }
-  
-  &.comet {
-    width: 4px;
-    height: 120px;
-    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.8));
-    transform: rotate(45deg);
-    top: 20%;
-    left: 20%;
-  }
-  
-  &.moon {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 70% 30%, #fff, #ccc);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
-    top: 25%;
-    left: 75%;
-    opacity: 0.7;
-  }
-  
-  &.satellite {
-    width: 50px;
-    height: 20px;
-    background: linear-gradient(45deg, #666, #999);
-    border-radius: 10px;
-    top: 60%;
-    right: 20%;
-    opacity: 0.8;
-    transform: rotate(-30deg);
-  }
-`;
-
 const HeroContent = styled.div`
   max-width: 1200px;
   margin: 0 auto;
@@ -121,6 +61,15 @@ const GlassCard = styled(motion.div)`
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   padding: 3rem;
   max-width: 600px;
+  
+  @media (max-width: 768px) {
+    padding: 2rem;
+    margin: 0 auto;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1.5rem;
+  }
 `;
 
 const Title = styled(motion.h1)`
@@ -133,6 +82,10 @@ const Title = styled(motion.h1)`
     color: var(--primary-color);
     display: block;
   }
+  
+  @media (max-width: 480px) {
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const Subtitle = styled(motion.p)`
@@ -140,12 +93,21 @@ const Subtitle = styled(motion.p)`
   margin-bottom: 3rem;
   color: var(--light-text-color);
   line-height: 1.8;
+  
+  @media (max-width: 480px) {
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
 `;
 
 const ButtonGroup = styled(motion.div)`
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  
+  @media (max-width: 480px) {
+    gap: 0.8rem;
+  }
 `;
 
 const Button = styled(motion.button)`
@@ -184,33 +146,6 @@ const SecondaryButton = styled.a`
 function Hero() {
   const heroRef = useRef<HTMLElement>(null);
   
-  // Parallax effect
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!heroRef.current) return;
-      
-      const layers = heroRef.current.querySelectorAll('.parallax-layer');
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2;
-      const mouseX = e.clientX;
-      const mouseY = e.clientY;
-      
-      layers.forEach((layer: Element) => {
-        const depth = parseFloat((layer as HTMLElement).dataset.depth || '0');
-        const moveX = (mouseX - centerX) * depth;
-        const moveY = (mouseY - centerY) * depth;
-        
-        (layer as HTMLElement).style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
-      });
-    };
-    
-    window.addEventListener('mousemove', handleMouseMove);
-    
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
-  
   return (
     <HeroSection id="hero" ref={heroRef}>
       <StarField>
@@ -230,22 +165,6 @@ function Hero() {
         <div className="star"></div>
         <div className="star"></div>
       </StarField>
-      
-      <ParallaxLayer depth={0.1} className="parallax-layer" data-depth="0.1">
-        <FloatingElement className="planet" />
-      </ParallaxLayer>
-      
-      <ParallaxLayer depth={0.2} className="parallax-layer" data-depth="0.2">
-        <FloatingElement className="comet" />
-      </ParallaxLayer>
-      
-      <ParallaxLayer depth={0.15} className="parallax-layer" data-depth="0.15">
-        <FloatingElement className="moon" />
-      </ParallaxLayer>
-      
-      <ParallaxLayer depth={0.25} className="parallax-layer" data-depth="0.25">
-        <FloatingElement className="satellite" />
-      </ParallaxLayer>
       
       <HeroContent>
         <GlassCard
