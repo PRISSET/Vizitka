@@ -34,7 +34,7 @@
       ]
     },
     {
-      "source": "/*.css",
+      "source": "/:file(.+\\.css)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -43,7 +43,7 @@
       ]
     },
     {
-      "source": "/*.js",
+      "source": "/:file(.+\\.js)",
       "headers": [
         {
           "key": "Cache-Control",
