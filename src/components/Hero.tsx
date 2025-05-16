@@ -3,12 +3,24 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 const HeroSection = styled.section`
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
   overflow: hidden;
+  padding: 1rem;
+  
+  @media (max-width: 768px) {
+    padding-top: 4rem;
+    min-height: calc(100vh - 2rem);
+    justify-content: flex-start;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.5rem;
+    padding-top: 4rem;
+  }
 `;
 
 const StarField = styled.div`
@@ -42,6 +54,12 @@ const StarField = styled.div`
   .star:nth-child(13) { top: 85%; left: 25%; width: 2px; height: 2px; animation-delay: 2.5s; }
   .star:nth-child(14) { top: 90%; left: 90%; width: 3px; height: 3px; animation-delay: 2.7s; }
   .star:nth-child(15) { top: 20%; left: 5%; width: 2px; height: 2px; animation-delay: 2.9s; }
+  
+  @media (max-width: 480px) {
+    .star {
+      opacity: 0.3;
+    }
+  }
 `;
 
 const HeroContent = styled.div`
@@ -50,6 +68,15 @@ const HeroContent = styled.div`
   padding: 0 1.5rem;
   position: relative;
   z-index: 2;
+  
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+    width: 100%;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0 0.5rem;
+  }
 `;
 
 const GlassCard = styled(motion.div)`
@@ -65,10 +92,22 @@ const GlassCard = styled(motion.div)`
   @media (max-width: 768px) {
     padding: 2rem;
     margin: 0 auto;
+    width: 100%;
+    background: rgba(23, 32, 56, 0.6);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
   }
   
   @media (max-width: 480px) {
     padding: 1.5rem;
+    max-width: 100%;
+    margin: 0;
+    border: 1px solid rgba(52, 152, 219, 0.2);
+    background: rgba(23, 32, 56, 0.65);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+      0 8px 24px rgba(0, 0, 0, 0.5),
+      0 0 15px rgba(52, 152, 219, 0.2);
   }
 `;
 
@@ -85,6 +124,7 @@ const Title = styled(motion.h1)`
   
   @media (max-width: 480px) {
     margin-bottom: 1.5rem;
+    font-size: clamp(2rem, 5vw, 2.5rem);
   }
 `;
 
@@ -97,6 +137,7 @@ const Subtitle = styled(motion.p)`
   @media (max-width: 480px) {
     margin-bottom: 2rem;
     line-height: 1.6;
+    font-size: 0.95rem;
   }
 `;
 
@@ -107,6 +148,8 @@ const ButtonGroup = styled(motion.div)`
   
   @media (max-width: 480px) {
     gap: 0.8rem;
+    flex-direction: column;
+    width: 100%;
   }
 `;
 
@@ -124,11 +167,17 @@ const Button = styled(motion.button)`
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
   }
+  
+  @media (max-width: 480px) {
+    width: 100%;
+    padding: 0.7rem 1.5rem;
+  }
 `;
 
 const SecondaryButton = styled.a`
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   padding: 0.8rem 2rem;
   border: 2px solid var(--primary-color);
   border-radius: 50px;
@@ -140,6 +189,11 @@ const SecondaryButton = styled.a`
   &:hover {
     background-color: rgba(52, 152, 219, 0.3);
     transform: translateY(-2px);
+  }
+  
+  @media (max-width: 480px) {
+    width: 100%;
+    padding: 0.7rem 1.5rem;
   }
 `;
 
@@ -191,6 +245,7 @@ function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.9 }}
+            className="button-group"
           >
             <Button
               whileHover={{ scale: 1.05 }}

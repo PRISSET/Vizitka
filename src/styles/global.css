@@ -36,6 +36,8 @@ html, body {
   transition: all 0.3s ease;
   /* Убираем градиентный фон */
   background-image: none;
+  width: 100%;
+  max-width: 100vw;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -109,7 +111,9 @@ img {
   }
   
   section {
-    padding: 3rem 0 !important;
+    padding: 2rem 0 !important;
+    min-height: unset !important;
+    height: auto !important;
   }
   
   /* Уменьшаем отступы между элементами */
@@ -122,11 +126,19 @@ img {
     text-align: center;
     align-items: center !important;
   }
+  
+  /* Оптимизация для стекающих элементов */
+  .flex-container {
+    flex-direction: column !important;
+  }
 }
 
 @media (max-width: 480px) {
   .glass-effect {
     padding: 1.2rem;
+    margin: 0 0.5rem !important;
+    backdrop-filter: blur(8px) !important;
+    background: rgba(23, 32, 56, 0.6) !important;
   }
   
   h1 {
@@ -147,9 +159,9 @@ img {
     font-size: 14px !important;
   }
   
-  /* Уменьшаем анимации для лучшей производительности */
+  /* Включаем обратно часть анимаций на мобильных */
   .parallax-layer {
-    transform: none !important;
+    transform: translateY(-5px) !important;
   }
   
   /* Оптимизация скорости загрузки */
@@ -162,6 +174,7 @@ img {
     flex-direction: column !important;
     align-items: center !important;
     width: 100% !important;
+    gap: 0.8rem !important;
   }
   
   /* Улучшаем навигацию на мобильных */
@@ -170,6 +183,46 @@ img {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
+  }
+  
+  /* Увеличиваем звездный фон */
+  .star {
+    opacity: 0.5 !important;
+  }
+  
+  /* Исправление для card элементов */
+  .card, .glass-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    background: rgba(23, 32, 56, 0.6) !important;
+  }
+}
+
+/* Дополнительные правила для ещё меньших экранов */
+@media (max-width: 360px) {
+  section {
+    padding: 1.5rem 0 !important;
+  }
+  
+  h1 {
+    font-size: 1.6rem !important;
+  }
+  
+  button, a.button {
+    width: 100% !important;
+    margin: 0.3rem 0 !important;
+  }
+  
+  .glass-effect {
+    padding: 1rem;
+  }
+  
+  /* Отключаем некоторые анимации */
+  .animate-element {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 

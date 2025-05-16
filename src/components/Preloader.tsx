@@ -23,6 +23,12 @@ const LoadingText = styled.div`
   letter-spacing: 0.3rem;
   text-transform: uppercase;
   margin-top: 1.5rem;
+  
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    letter-spacing: 0.2rem;
+    margin-top: 1rem;
+  }
 `;
 
 const starAnimation = keyframes`
@@ -35,6 +41,11 @@ const StarContainer = styled.div`
   position: relative;
   width: 120px;
   height: 120px;
+  
+  @media (max-width: 480px) {
+    width: 90px;
+    height: 90px;
+  }
 `;
 
 const Star = styled.div<{ delay: number }>`
@@ -47,25 +58,38 @@ const Star = styled.div<{ delay: number }>`
   border-radius: 50%;
   animation: ${starAnimation} 2s ease-in-out infinite;
   animation-delay: ${props => props.delay}s;
+  
+  @media (max-width: 480px) {
+    animation-duration: 1.8s;
+  }
 `;
 
 const Preloader: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // Определяем, является ли устройство мобильным
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    // Проверяем при загрузке
+    checkMobile();
+    
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2500);
-
+    }, isMobile ? 2000 : 2500); // Уменьшаем время для мобильных устройств
+    
     return () => clearTimeout(timer);
-  }, []);
+  }, [isMobile]);
 
   return (
     <AnimatePresence>
       {isLoading && (
         <PreloaderContainer
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }} // Уменьшаем время анимации для лучшей производительности
         >
           <StarContainer>
             <Star delay={0} />

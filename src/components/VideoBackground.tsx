@@ -21,9 +21,14 @@ const BackgroundImage = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   filter: brightness(0.85) contrast(1.1) saturate(1.2);
+  
+  @media (max-width: 768px) {
+    /* Для мобильных устройств используем более интенсивные фильтры */
+    filter: brightness(0.75) contrast(1.15) saturate(1.3);
+  }
 `;
 
-// Очень прозрачный оверлей, чтобы текст был читаемым
+// Более насыщенный оверлей для мобильных
 const Overlay = styled.div`
   position: absolute;
   top: 0;
@@ -35,6 +40,15 @@ const Overlay = styled.div`
     rgba(20, 20, 50, 0.3), 
     rgba(50, 30, 60, 0.3)
   );
+  
+  @media (max-width: 768px) {
+    /* Более контрастный оверлей для мобильных устройств */
+    background: linear-gradient(to bottom, 
+      rgba(0, 0, 0, 0.35), 
+      rgba(20, 20, 50, 0.35), 
+      rgba(50, 30, 60, 0.4)
+    );
+  }
 `;
 
 // Контейнер для лепестков сакуры
@@ -60,8 +74,17 @@ const SakuraPetal = styled.div`
   top: -50px;
   opacity: 0;
   
+  @media (max-width: 768px) {
+    /* Добавляем небольшие тени на мобильных для лучшей видимости */
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.4));
+  }
+  
   &.type1 {
     background-color: rgba(255, 182, 193, 0.7); // Нежно-розовый
+    
+    @media (max-width: 768px) {
+      background-color: rgba(255, 182, 193, 0.8);
+    }
   }
   
   &.type2 {
@@ -70,6 +93,10 @@ const SakuraPetal = styled.div`
   
   &.type3 {
     background-color: rgba(219, 112, 147, 0.7); // Темно-розовый
+    
+    @media (max-width: 768px) {
+      background-color: rgba(219, 112, 147, 0.8);
+    }
   }
   
   &.small {
@@ -172,7 +199,7 @@ const VideoBackground = () => {
     setSakuraPetals([]);
     
     // Постепенно добавляем лепестки с задержкой
-    const totalPetals = isMobile ? 15 : 30;
+    const totalPetals = isMobile ? 15 : 30; // Увеличиваем количество лепестков на мобильных
     const interval = setInterval(() => {
       setSakuraPetals(petals => {
         // Если уже достигли нужного количества, прекращаем
@@ -185,7 +212,7 @@ const VideoBackground = () => {
         const newPetal = createPetal(petals.length, Math.random() * 3);
         return [...petals, newPetal];
       });
-    }, 300); // Добавляем новый лепесток каждые 300мс
+    }, isMobile ? 400 : 300); // Немного увеличиваем интервал для мобильных
     
     // Функция для замены лепестков, достигших конца анимации
     const replacePetalsInterval = setInterval(() => {
@@ -203,7 +230,7 @@ const VideoBackground = () => {
           return petal;
         });
       });
-    }, 2000); // Проверяем каждые 2 секунды
+    }, isMobile ? 2500 : 2000); // Оптимизируем интервал для мобильных
     
     return () => {
       window.removeEventListener('resize', checkMobile);
@@ -217,7 +244,7 @@ const VideoBackground = () => {
       <BackgroundImage />
       <Overlay />
       
-      {/* Лепестки сакуры */}
+      {/* Лепестки сакуры - показываем больше на мобильных устройствах */}
       <SakuraPetalsContainer>
         {sakuraPetals.map((petal) => (
           <SakuraPetal
@@ -226,7 +253,7 @@ const VideoBackground = () => {
             style={{
               left: petal.left,
               animationDelay: petal.delay,
-              animationDuration: `${petal.duration}, 5s`,
+              animationDuration: isMobile ? `${parseFloat(petal.duration) * 0.9}s, 4s` : `${petal.duration}, 5s`, // Оптимизируем скорость на мобильных
               '--direction': petal.direction
             } as React.CSSProperties}
           />

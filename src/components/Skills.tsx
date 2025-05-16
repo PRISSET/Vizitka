@@ -5,12 +5,24 @@ import { motion } from 'framer-motion';
 const SkillsSection = styled.section`
   padding: 6rem 0;
   background-color: #f8f9fa;
+  
+  @media (max-width: 768px) {
+    padding: 4rem 0;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 3rem 0;
+  }
 `;
 
 const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
+  
+  @media (max-width: 480px) {
+    padding: 0 1rem;
+  }
 `;
 
 const SectionTitle = styled.h2`
@@ -21,12 +33,32 @@ const SectionTitle = styled.h2`
   span {
     color: var(--primary-color);
   }
+  
+  @media (max-width: 768px) {
+    font-size: 2.2rem;
+    margin-bottom: 2.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+  }
 `;
 
 const SkillsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 2rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
 `;
 
 const SkillCard = styled(motion.div)`
@@ -55,6 +87,26 @@ const SkillCard = styled(motion.div)`
   &:hover {
     transform: translateY(-5px);
   }
+  
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+    
+    h3 {
+      font-size: 1.2rem;
+    }
+    
+    p {
+      font-size: 0.95rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1.2rem;
+    
+    &:hover {
+      transform: none; /* Отключаем эффект наведения на мобильных */
+    }
+  }
 `;
 
 const SkillProgress = styled.div`
@@ -80,6 +132,19 @@ const SkillProgress = styled.div`
     background-color: var(--primary-color);
     border-radius: 10px;
     transition: width 1s ease-in-out;
+  }
+  
+  @media (max-width: 480px) {
+    margin-top: 1.2rem;
+    
+    .progress-bar {
+      height: 6px;
+      margin-bottom: 0.8rem;
+    }
+    
+    .skill-name {
+      font-size: 0.9rem;
+    }
   }
 `;
 
