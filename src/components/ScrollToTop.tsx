@@ -32,7 +32,6 @@ const ScrollButton = styled(motion.button)`
 const ScrollToTop: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   
-  // Show button when page is scrolled down
   const toggleVisibility = () => {
     if (window.pageYOffset > 300) {
       setIsVisible(true);
@@ -41,7 +40,6 @@ const ScrollToTop: React.FC = () => {
     }
   };
   
-  // Set the top scroll function
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,

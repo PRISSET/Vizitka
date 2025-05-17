@@ -69,17 +69,15 @@ const Preloader: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Определяем, является ли устройство мобильным
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
     
-    // Проверяем при загрузке
     checkMobile();
     
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, isMobile ? 2000 : 2500); // Уменьшаем время для мобильных устройств
+    }, isMobile ? 2000 : 2500);
     
     return () => clearTimeout(timer);
   }, [isMobile]);
@@ -89,7 +87,7 @@ const Preloader: React.FC = () => {
       {isLoading && (
         <PreloaderContainer
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.6 }} // Уменьшаем время анимации для лучшей производительности
+          transition={{ duration: 0.6 }}
         >
           <StarContainer>
             <Star delay={0} />

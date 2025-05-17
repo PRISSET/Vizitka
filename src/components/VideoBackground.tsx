@@ -23,12 +23,10 @@ const BackgroundImage = styled.div`
   filter: brightness(0.85) contrast(1.1) saturate(1.2);
   
   @media (max-width: 768px) {
-    /* Для мобильных устройств используем более интенсивные фильтры */
     filter: brightness(0.75) contrast(1.15) saturate(1.3);
   }
 `;
 
-// Более насыщенный оверлей для мобильных
 const Overlay = styled.div`
   position: absolute;
   top: 0;
@@ -42,7 +40,6 @@ const Overlay = styled.div`
   );
   
   @media (max-width: 768px) {
-    /* Более контрастный оверлей для мобильных устройств */
     background: linear-gradient(to bottom, 
       rgba(0, 0, 0, 0.35), 
       rgba(20, 20, 50, 0.35), 
@@ -51,8 +48,7 @@ const Overlay = styled.div`
   }
 `;
 
-// Контейнер для лепестков сакуры
-const SakuraPetalsContainer = styled.div`
+const SnowContainer = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -62,180 +58,213 @@ const SakuraPetalsContainer = styled.div`
   pointer-events: none;
 `;
 
-// Лепесток сакуры
-const SakuraPetal = styled.div`
+const Snowflake = styled.div`
   position: absolute;
-  border-radius: 150% 0 150% 0;
-  transform: rotate(45deg);
-  animation-name: sakuraFall, sakuraRotate;
-  animation-timing-function: linear, ease-in-out;
-  animation-iteration-count: 1;
-  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.3));
-  top: -50px;
+  border-radius: 50%;
+  animation-name: snowFall, snowSway, glowPulse;
+  animation-timing-function: linear, ease-in-out, ease-in-out;
+  animation-iteration-count: 1, 1, infinite;
+  top: -10px;
   opacity: 0;
   
-  @media (max-width: 768px) {
-    /* Добавляем небольшие тени на мобильных для лучшей видимости */
-    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.4));
-  }
-  
   &.type1 {
-    background-color: rgba(255, 182, 193, 0.7); // Нежно-розовый
-    
-    @media (max-width: 768px) {
-      background-color: rgba(255, 182, 193, 0.8);
-    }
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.7), 0 0 10px 4px rgba(200, 220, 255, 0.3);
   }
   
   &.type2 {
-    background-color: rgba(255, 255, 255, 0.8); // Белый
+    background-color: rgba(240, 248, 255, 0.9);
+    box-shadow: 0 0 8px 3px rgba(210, 235, 255, 0.8), 0 0 12px 5px rgba(180, 215, 255, 0.4);
   }
   
   &.type3 {
-    background-color: rgba(219, 112, 147, 0.7); // Темно-розовый
-    
-    @media (max-width: 768px) {
-      background-color: rgba(219, 112, 147, 0.8);
-    }
+    background-color: rgba(220, 240, 255, 0.95);
+    box-shadow: 0 0 7px 2px rgba(200, 225, 255, 0.8), 0 0 15px 6px rgba(150, 200, 255, 0.3);
+  }
+  
+  &.type4 {
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 30%, rgba(230, 240, 255, 0.6) 100%);
+    box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.7), 0 0 18px 8px rgba(170, 210, 255, 0.4);
+  }
+  
+  &.type5 {
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 20%, rgba(210, 230, 255, 0.7) 90%);
+    box-shadow: 0 0 8px 4px rgba(200, 225, 255, 0.7), 0 0 16px 7px rgba(160, 205, 255, 0.4);
+  }
+  
+  &.special {
+    background: radial-gradient(circle, rgba(255, 255, 255, 1) 10%, rgba(190, 225, 255, 0.8) 70%, rgba(150, 200, 255, 0.6) 100%);
+    box-shadow: 0 0 12px 5px rgba(220, 240, 255, 0.9), 0 0 20px 10px rgba(130, 190, 255, 0.5);
+    animation-name: snowFall, snowSway, specialGlow;
+  }
+  
+  &.tiny {
+    width: 2px;
+    height: 2px;
+    opacity: 0;
   }
   
   &.small {
-    width: 8px;
-    height: 8px;
+    width: 4px;
+    height: 4px;
     opacity: 0;
   }
   
   &.medium {
+    width: 6px;
+    height: 6px;
+    opacity: 0;
+  }
+  
+  &.large {
+    width: 9px;
+    height: 9px;
+    opacity: 0;
+  }
+  
+  &.xlarge {
     width: 12px;
     height: 12px;
     opacity: 0;
   }
   
-  &.large {
-    width: 16px;
-    height: 16px;
-    opacity: 0;
-  }
-  
-  @keyframes sakuraFall {
+  @keyframes snowFall {
     0% {
-      top: -50px; /* Начало анимации за пределами экрана */
+      top: -10px;
       opacity: 0;
-      transform: translateX(0) rotate(45deg);
+      transform: translateX(0);
     }
-    5% {
-      opacity: 1; /* Постепенное появление */
+    3% {
+      opacity: 0.9;
     }
-    25% {
-      transform: translateX(calc(10px * var(--direction))) rotate(45deg);
-    }
-    50% {
-      transform: translateX(calc(-10px * var(--direction))) rotate(45deg);
-    }
-    75% {
-      transform: translateX(calc(15px * var(--direction))) rotate(45deg);
-    }
-    95% {
-      opacity: 1; /* Начало исчезновения */
+    90% {
+      opacity: 0.9;
     }
     100% {
-      top: 105%; /* Уход за пределы экрана внизу */
-      opacity: 0; /* Полное исчезновение */
-      transform: translateX(calc(20px * var(--direction))) rotate(45deg);
+      top: calc(100vh + 20px);
+      opacity: 0.9;
+      transform: translateX(calc(var(--drift) * 1px));
     }
   }
   
-  @keyframes sakuraRotate {
-    0% { transform: rotate(45deg); }
-    25% { transform: rotate(65deg); }
-    50% { transform: rotate(45deg); }
-    75% { transform: rotate(25deg); }
-    100% { transform: rotate(45deg); }
+  @keyframes snowSway {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(calc(var(--sway) * 1px)); }
+    50% { transform: translateX(0); }
+    75% { transform: translateX(calc(var(--sway) * -0.8px)); }
+    100% { transform: translateX(0); }
+  }
+  
+  @keyframes glowPulse {
+    0% { filter: brightness(1) blur(0px); }
+    50% { filter: brightness(1.2) blur(0.5px); }
+    100% { filter: brightness(1) blur(0px); }
+  }
+  
+  @keyframes specialGlow {
+    0% { filter: brightness(1) blur(0px); box-shadow: 0 0 12px 5px rgba(220, 240, 255, 0.9), 0 0 20px 10px rgba(130, 190, 255, 0.5); }
+    25% { filter: brightness(1.3) blur(1px); box-shadow: 0 0 15px 7px rgba(220, 240, 255, 0.95), 0 0 25px 12px rgba(130, 190, 255, 0.6); }
+    50% { filter: brightness(1.5) blur(1.5px); box-shadow: 0 0 18px 8px rgba(230, 245, 255, 1), 0 0 30px 15px rgba(150, 200, 255, 0.7); }
+    75% { filter: brightness(1.3) blur(1px); box-shadow: 0 0 15px 7px rgba(220, 240, 255, 0.95), 0 0 25px 12px rgba(130, 190, 255, 0.6); }
+    100% { filter: brightness(1) blur(0px); box-shadow: 0 0 12px 5px rgba(220, 240, 255, 0.9), 0 0 20px 10px rgba(130, 190, 255, 0.5); }
   }
 `;
 
-interface PetalProps {
+interface SnowflakeProps {
   id: number;
   left: string;
   delay: string;
-  duration: string;
+  fallDuration: string;
+  swayDuration: string;
+  glowDuration: string;
   size: string;
-  direction: number;
+  drift: number;
+  sway: number;
   type: string;
-  isActive: boolean;
 }
 
 const VideoBackground = () => {
   const [isMobile, setIsMobile] = useState(false);
-  const [sakuraPetals, setSakuraPetals] = useState<PetalProps[]>([]);
+  const [snowflakes, setSnowflakes] = useState<SnowflakeProps[]>([]);
   
-  // Создаем лепесток с заданной задержкой
-  const createPetal = (index: number, delay: number) => {
+  const createSnowflake = (index: number, delay: number) => {
+    const sizeOptions = ['tiny', 'small', 'small', 'medium', 'medium', 'medium', 'large', 'large', 'xlarge'];
+    const randomSize = sizeOptions[Math.floor(Math.random() * sizeOptions.length)];
+    
+    let fallSpeed;
+    switch(randomSize) {
+      case 'tiny': fallSpeed = 20 + Math.random() * 10; break;
+      case 'small': fallSpeed = 18 + Math.random() * 10; break;
+      case 'medium': fallSpeed = 15 + Math.random() * 8; break;
+      case 'large': fallSpeed = 12 + Math.random() * 8; break;
+      case 'xlarge': fallSpeed = 10 + Math.random() * 6; break;
+      default: fallSpeed = 15 + Math.random() * 10;
+    }
+    
+    const typeOptions = ['type1', 'type1', 'type2', 'type2', 'type3', 'type3', 'type4', 'type5'];
+    const isSpecial = Math.random() < 0.05;
+    const randomType = isSpecial ? 'special' : typeOptions[Math.floor(Math.random() * typeOptions.length)];
+    
+    const glowDuration = `${2 + Math.random() * 4}s`;
+    
     return {
       id: index,
       left: `${Math.random() * 100}%`,
       delay: `${delay}s`,
-      duration: `${10 + Math.random() * 10}s`,
-      size: ['small', 'medium', 'large'][Math.floor(Math.random() * 3)],
-      direction: Math.random() > 0.5 ? 1 : -1,
-      type: [`type1`, `type2`, `type3`][Math.floor(Math.random() * 3)],
-      isActive: true
+      fallDuration: `${fallSpeed}s`,
+      swayDuration: `${6 + Math.random() * 8}s`,
+      glowDuration,
+      size: randomSize,
+      drift: Math.floor(Math.random() * 100) - 50,
+      sway: Math.floor(10 + Math.random() * 25),
+      type: randomType
     };
   };
   
   useEffect(() => {
-    // Проверка мобильного устройства
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
     
-    // Вызов при загрузке
     checkMobile();
     
-    // Слушатель изменения размера экрана
     window.addEventListener('resize', checkMobile);
     
-    // Инициализация пустого массива лепестков
-    setSakuraPetals([]);
+    setSnowflakes([]);
     
-    // Постепенно добавляем лепестки с задержкой
-    const totalPetals = isMobile ? 15 : 30; // Увеличиваем количество лепестков на мобильных
+    const totalSnowflakes = isMobile ? 80 : 150;
     const interval = setInterval(() => {
-      setSakuraPetals(petals => {
-        // Если уже достигли нужного количества, прекращаем
-        if (petals.length >= totalPetals) {
+      setSnowflakes(flakes => {
+        if (flakes.length >= totalSnowflakes) {
           clearInterval(interval);
-          return petals;
+          return flakes;
         }
         
-        // Добавляем новый лепесток с случайной задержкой
-        const newPetal = createPetal(petals.length, Math.random() * 3);
-        return [...petals, newPetal];
+        const newSnowflake = createSnowflake(flakes.length, Math.random() * 10);
+        return [...flakes, newSnowflake];
       });
-    }, isMobile ? 400 : 300); // Немного увеличиваем интервал для мобильных
+    }, isMobile ? 100 : 50);
     
-    // Функция для замены лепестков, достигших конца анимации
-    const replacePetalsInterval = setInterval(() => {
-      setSakuraPetals(petals => {
-        if (petals.length === 0) return petals;
+    const replaceSnowflakeInterval = setInterval(() => {
+      setSnowflakes(flakes => {
+        if (flakes.length === 0) return flakes;
         
-        // Находим произвольный лепесток для замены
-        const indexToReplace = Math.floor(Math.random() * petals.length);
+        const numToReplace = Math.floor(Math.random() * 5) + 1;
+        const newFlakes = [...flakes];
         
-        // Создаем новый массив, заменяя выбранный лепесток
-        return petals.map((petal, index) => {
-          if (index === indexToReplace) {
-            return createPetal(petal.id, 0); // Немедленное появление нового лепестка
-          }
-          return petal;
-        });
+        for (let i = 0; i < numToReplace; i++) {
+          const indexToReplace = Math.floor(Math.random() * flakes.length);
+          newFlakes[indexToReplace] = createSnowflake(flakes[indexToReplace].id, 0);
+        }
+        
+        return newFlakes;
       });
-    }, isMobile ? 2500 : 2000); // Оптимизируем интервал для мобильных
+    }, isMobile ? 1000 : 800);
     
     return () => {
       window.removeEventListener('resize', checkMobile);
       clearInterval(interval);
-      clearInterval(replacePetalsInterval);
+      clearInterval(replaceSnowflakeInterval);
     };
   }, [isMobile]);
 
@@ -244,21 +273,21 @@ const VideoBackground = () => {
       <BackgroundImage />
       <Overlay />
       
-      {/* Лепестки сакуры - показываем больше на мобильных устройствах */}
-      <SakuraPetalsContainer>
-        {sakuraPetals.map((petal) => (
-          <SakuraPetal
-            key={`${petal.id}-${petal.left}`}
-            className={`${petal.size} ${petal.type}`}
+      <SnowContainer>
+        {snowflakes.map((flake) => (
+          <Snowflake
+            key={`${flake.id}-${flake.left}`}
+            className={`${flake.size} ${flake.type}`}
             style={{
-              left: petal.left,
-              animationDelay: petal.delay,
-              animationDuration: isMobile ? `${parseFloat(petal.duration) * 0.9}s, 4s` : `${petal.duration}, 5s`, // Оптимизируем скорость на мобильных
-              '--direction': petal.direction
+              left: flake.left,
+              animationDelay: flake.delay,
+              animationDuration: `${flake.fallDuration}, ${flake.swayDuration}, ${flake.glowDuration}`,
+              '--drift': flake.drift,
+              '--sway': flake.sway
             } as React.CSSProperties}
           />
         ))}
-      </SakuraPetalsContainer>
+      </SnowContainer>
     </VideoContainer>
   );
 };

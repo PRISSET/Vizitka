@@ -135,7 +135,7 @@ function Footer() {
       </FooterContent>
       
       <Copyright>
-        © {new Date().getFullYear()} Назар. Все права защищены.
+        © {new Date().getFullYear()} PRISSET. Все права защищены.
       </Copyright>
     </FooterContainer>
   );

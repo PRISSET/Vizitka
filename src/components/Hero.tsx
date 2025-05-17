@@ -232,7 +232,7 @@ function Hero() {
             transition={{ duration: 0.6, delay: 0.5 }}
           >
             Привет, я 
-            <span>Назар</span>
+            <span>PRISSET</span>
           </Title>
           <Subtitle
             initial={{ opacity: 0, y: 20 }}

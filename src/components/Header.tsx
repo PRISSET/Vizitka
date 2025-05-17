@@ -99,7 +99,7 @@ const MobileButton = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 44px; /* Увеличиваем область касания */
+    min-height: 44px;
     background: rgba(52, 152, 219, 0.3);
     box-shadow: 0 0 10px rgba(52, 152, 219, 0.2);
   }
@@ -150,7 +150,7 @@ const MobileNavLink = styled.a<{ $isActive?: boolean }>`
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
-  min-height: 44px; /* Для улучшения касания на мобильных */
+  min-height: 44px;
   
   @media (max-width: 480px) {
     border-bottom: 1px solid rgba(52, 152, 219, 0.2);
@@ -217,7 +217,6 @@ function Header() {
         setScrolled(false);
       }
       
-      // Определение активной секции при скролле
       const sections = ['hero', 'about'];
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -233,7 +232,6 @@ function Header() {
     
     window.addEventListener('scroll', handleScroll);
     
-    // Блокируем прокрутку страницы, когда мобильное меню открыто
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -262,7 +260,7 @@ function Header() {
       }}>
         <NavContainer>
           <Logo href="#hero" onClick={(e) => { e.preventDefault(); scrollToSection('hero'); }}>
-            <span>{'</'}</span>Nazar
+            <span>{'</'}</span>PRISSET
           </Logo>
           <Nav>
             <NavLink 

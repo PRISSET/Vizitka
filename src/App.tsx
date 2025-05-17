@@ -3,6 +3,8 @@ import VideoBackground from './components/VideoBackground';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import Preloader from './components/Preloader';
+import LanguageSwitcher from './components/LanguageSwitcher';
+import { useLanguage } from './i18n/LanguageContext';
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -69,7 +71,6 @@ const ProfileCard = styled(motion.div)`
     background: rgba(15, 23, 42, 0.6);
   }
 
-  /* Добавляем эффект сияния по краям */
   &::before {
     content: '';
     position: absolute;
@@ -398,23 +399,20 @@ const SocialButtonsContainer = styled.div`
 function App() {
   const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const { t } = useLanguage();
   
   useEffect(() => {
-    // Проверка мобильного устройства
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
     
-    // Вызываем при загрузке
     checkMobile();
     
-    // Слушатель изменения размера экрана
     window.addEventListener('resize', checkMobile);
     
-    // Имитация загрузки
     const timer = setTimeout(() => {
       setLoading(false);
-    }, isMobile ? 1200 : 2000); // Уменьшаем время загрузки на мобильных устройствах
+    }, isMobile ? 1200 : 2000);
     
     return () => {
       clearTimeout(timer);
@@ -429,6 +427,7 @@ function App() {
       ) : (
         <AppContainer>
           <VideoBackground />
+          <LanguageSwitcher />
           <ProfileCard
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -462,7 +461,7 @@ function App() {
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 1, delay: 0.3 }}
                 >
-                  <img src="/avatar.gif" alt="Назар" />
+                  <img src="/avatar.gif" alt="PRISSET" />
                 </Avatar>
               </AvatarContainer>
               
@@ -472,14 +471,14 @@ function App() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.7, delay: 0.5 }}
                 >
-                  Назар
+                  PRISSET
                 </ProfileName>
                 <ProfileTitle
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.7, delay: 0.6 }}
                 >
-                  Front-end Разработчик
+                  {t.profileTitle}
                 </ProfileTitle>
                 <Divider 
                   initial={{ width: 0 }}
@@ -494,9 +493,7 @@ function App() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, delay: 0.8 }}
             >
-              Меня зовут Назар, мне 18 лет. Уже более трёх лет я занимаюсь 
-              веб-разработкой, в основном на фронтенде. За это время создал и участвовал 
-              в разработке более 20 проектов. Владею HTML, CSS, JavaScript, TypeScript и React.
+              {t.bio1}
             </ProfileDescription>
             
             <ProfileDescription
@@ -504,9 +501,7 @@ function App() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, delay: 0.9 }}
             >
-              Постоянно развиваюсь и стремлюсь к созданию чистого, масштабируемого и эффективного кода.
-              Мой подход сочетает творчество и внимание к деталям, что позволяет 
-              создавать качественные веб-приложения.
+              {t.bio2}
             </ProfileDescription>
             
             <ProfileStats>
@@ -517,7 +512,7 @@ function App() {
                 whileHover={{ y: -5, boxShadow: "0 10px 25px rgba(0, 0, 0, 0.3)" }}
               >
                 <h3>3+</h3>
-                <p>Года опыта</p>
+                <p>{t.yearsExperience}</p>
               </StatItem>
               <StatItem
                 initial={{ scale: 0.8, opacity: 0 }}
@@ -526,7 +521,7 @@ function App() {
                 whileHover={{ y: -5, boxShadow: "0 10px 25px rgba(0, 0, 0, 0.3)" }}
               >
                 <h3>20+</h3>
-                <p>Проектов</p>
+                <p>{t.projects}</p>
               </StatItem>
               <StatItem
                 initial={{ scale: 0.8, opacity: 0 }}
@@ -535,7 +530,7 @@ function App() {
                 whileHover={{ y: -5, boxShadow: "0 10px 25px rgba(0, 0, 0, 0.3)" }}
               >
                 <h3>5+</h3>
-                <p>Технологий</p>
+                <p>{t.technologies}</p>
               </StatItem>
             </ProfileStats>
             
@@ -553,7 +548,7 @@ function App() {
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.064-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
                 </svg>
-                Написать в Телеграм
+                {t.telegramButton}
               </SocialButton>
               
               <SocialButton 
@@ -570,7 +565,7 @@ function App() {
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
                 </svg>
-                Написать в Instagram
+                {t.instagramButton}
               </SocialButton>
             </SocialButtonsContainer>
           </ProfileCard>

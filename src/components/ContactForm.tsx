@@ -288,7 +288,6 @@ function ContactForm() {
     setAlert(null);
     
     try {
-      // Имитация задержки отправки формы
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       setAlert({
@@ -296,7 +295,6 @@ function ContactForm() {
         success: true
       });
       
-      // Сброс формы
       setFormData({
         name: '',
         email: '',

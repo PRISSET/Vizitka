@@ -132,7 +132,7 @@ function About() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <img src="https://i.imgur.com/BKG3aHJ.png" alt="Назар" />
+              <img src="https://i.imgur.com/BKG3aHJ.png" alt="PRISSET" />
             </AboutImage>
             <AboutText
               initial={{ opacity: 0, x: 50 }}
@@ -141,7 +141,7 @@ function About() {
               transition={{ duration: 0.6, delay: 0.3 }}
             >
               <p>
-                Привет! Меня зовут Назар, мне 18 лет. Уже более трёх лет я занимаюсь 
+                Привет! Меня зовут PRISSET, мне 18 лет. Уже более трёх лет я занимаюсь 
                 веб-разработкой, в основном на фронтенде. За это время создал и участвовал 
                 в разработке более 20 проектов.
               </p>

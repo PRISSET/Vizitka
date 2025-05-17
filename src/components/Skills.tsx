@@ -104,7 +104,7 @@ const SkillCard = styled(motion.div)`
     padding: 1.2rem;
     
     &:hover {
-      transform: none; /* Отключаем эффект наведения на мобильных */
+      transform: none;
     }
   }
 `;
