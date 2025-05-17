@@ -52,7 +52,7 @@
       ]
     },
     {
-      "source": "/background_000.webp",
+      "source": "/background.webp",
       "headers": [
         {
           "key": "Cache-Control",
