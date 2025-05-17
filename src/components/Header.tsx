@@ -5,14 +5,22 @@ const HeaderContainer = styled.header`
   padding: 1.5rem 0;
   position: sticky;
   top: 0;
-  background-color: rgba(10, 17, 40, 0.5);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: linear-gradient(to right, rgba(10, 0, 0, 0.5), rgba(75, 0, 0, 0.3), rgba(10, 0, 0, 0.5));
+  background-size: 200% 100%;
+  animation: gradientHeader 20s ease infinite;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   z-index: 100;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(183, 28, 28, 0.05);
   width: 100%;
+  
+  @keyframes gradientHeader {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
   
   @media (max-width: 480px) {
     padding: 1rem 0;
@@ -40,7 +48,10 @@ const Logo = styled.a`
   align-items: center;
   
   span {
-    color: var(--primary-color);
+    background: linear-gradient(to right, #b71c1c, #ff5252);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin-right: 5px;
   }
   
@@ -77,9 +88,9 @@ const NavLink = styled.a<{ $isActive?: boolean }>`
     height: 2px;
     bottom: -5px;
     left: 0;
-    background-color: var(--primary-color);
+    background: ${props => props.$isActive ? 'linear-gradient(to right, #b71c1c, #ff5252, #800020)' : 'var(--primary-color)'};
     transition: width 0.3s ease;
-    box-shadow: 0 0 8px rgba(52, 152, 219, 0.8);
+    box-shadow: 0 0 8px rgba(183, 28, 28, 0.6);
   }
   
   &:hover:after {
@@ -91,7 +102,7 @@ const MobileButton = styled.button`
   display: none;
   font-size: 1.5rem;
   color: var(--text-color);
-  background: rgba(52, 152, 219, 0.1);
+  background: rgba(183, 28, 28, 0.09);
   border-radius: 8px;
   padding: 0.3rem 0.6rem;
   
@@ -100,8 +111,8 @@ const MobileButton = styled.button`
     align-items: center;
     justify-content: center;
     min-height: 44px;
-    background: rgba(52, 152, 219, 0.3);
-    box-shadow: 0 0 10px rgba(52, 152, 219, 0.2);
+    background: rgba(183, 28, 28, 0.2);
+    box-shadow: 0 0 10px rgba(183, 28, 28, 0.15);
   }
 `;
 
@@ -112,13 +123,13 @@ const MobileMenu = styled.div<{ isOpen: boolean }>`
   width: 80%;
   max-width: 320px;
   height: 100vh;
-  background: var(--background-color);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: linear-gradient(135deg, rgba(10, 0, 0, 0.65), rgba(50, 0, 0, 0.6));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   z-index: 1000;
   padding: 2rem 1.5rem;
   transform: ${({ isOpen }) => isOpen ? 'translateX(0)' : 'translateX(100%)'};
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.4s ease-in-out;
   display: flex;
   flex-direction: column;
   box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
@@ -130,8 +141,8 @@ const MobileMenu = styled.div<{ isOpen: boolean }>`
   @media (max-width: 480px) {
     width: 85%;
     padding: 1.5rem 1rem;
-    background: rgba(10, 17, 40, 0.9);
-    border-left: 1px solid rgba(52, 152, 219, 0.3);
+    background: linear-gradient(135deg, rgba(10, 0, 0, 0.65), rgba(50, 0, 0, 0.6));
+    border-left: 1px solid rgba(183, 28, 28, 0.2);
   }
 `;
 
@@ -147,19 +158,19 @@ const MobileNavLink = styled.a<{ $isActive?: boolean }>`
   font-size: 1.2rem;
   font-weight: ${props => props.$isActive ? '600' : '500'};
   padding: 0.8rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   align-items: center;
   min-height: 44px;
   
   @media (max-width: 480px) {
-    border-bottom: 1px solid rgba(52, 152, 219, 0.2);
+    border-bottom: 1px solid rgba(183, 28, 28, 0.15);
     font-size: 1.3rem;
     padding: 1rem 0;
     letter-spacing: 0.5px;
     
     ${props => props.$isActive && `
-      background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.1));
+      background: linear-gradient(90deg, transparent, rgba(183, 28, 28, 0.08));
       padding-left: 0.5rem;
     `}
   }
@@ -179,7 +190,7 @@ const CloseButton = styled.button`
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
   
   @media (max-width: 480px) {
     top: 0.8rem;
@@ -193,11 +204,14 @@ const Overlay = styled.div<{ isOpen: boolean }>`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.6);
   z-index: 999;
   opacity: ${({ isOpen }) => isOpen ? 1 : 0};
   visibility: ${({ isOpen }) => isOpen ? 'visible' : 'hidden'};
   transition: opacity 0.3s ease;
+  backdrop-filter: ${({ isOpen }) => isOpen ? 'blur(3px)' : 'blur(0px)'};
+  -webkit-backdrop-filter: ${({ isOpen }) => isOpen ? 'blur(3px)' : 'blur(0px)'};
+  transition: all 0.4s ease;
   
   @media (min-width: 769px) {
     display: none;
@@ -240,73 +254,97 @@ function Header() {
     
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      document.body.style.overflow = '';
     };
   }, [mobileMenuOpen]);
-
+  
   const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
+    const element = document.getElementById(sectionId);
+    if (element) {
+      window.scrollTo({
+        top: element.offsetTop - 80,
+        behavior: 'smooth'
+      });
+      setActiveSection(sectionId);
+      setMobileMenuOpen(false);
     }
-    setMobileMenuOpen(false);
   };
-
+  
   return (
-    <>
-      <HeaderContainer style={{ 
-        padding: scrolled ? '1rem 0' : '1.5rem 0',
-        backgroundColor: scrolled ? 'rgba(10, 17, 40, 0.9)' : 'rgba(10, 17, 40, 0.7)'
-      }}>
-        <NavContainer>
-          <Logo href="#hero" onClick={(e) => { e.preventDefault(); scrollToSection('hero'); }}>
-            <span>{'</'}</span>PRISSET
-          </Logo>
-          <Nav>
-            <NavLink 
-              href="#about" 
-              $isActive={activeSection === 'about'} 
-              onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}
-            >
-              Обо мне
-            </NavLink>
-          </Nav>
-          <MobileButton 
-            onClick={() => setMobileMenuOpen(true)}
-            aria-label="Открыть меню"
+    <HeaderContainer style={{ 
+      padding: scrolled ? '1rem 0' : '1.5rem 0',
+      background: scrolled ? 
+        'linear-gradient(to right, rgba(10, 0, 0, 0.65), rgba(75, 0, 0, 0.45), rgba(10, 0, 0, 0.65))' : 
+        'linear-gradient(to right, rgba(10, 0, 0, 0.5), rgba(75, 0, 0, 0.3), rgba(10, 0, 0, 0.5))'
+    }}>
+      <NavContainer>
+        <Logo href="#hero" onClick={(e) => {
+          e.preventDefault();
+          scrollToSection('hero');
+        }}>
+          <span>P</span>RISSET
+        </Logo>
+        
+        <Nav>
+          <NavLink 
+            href="#hero" 
+            $isActive={activeSection === 'hero'}
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection('hero');
+            }}
           >
-            ☰
-          </MobileButton>
-        </NavContainer>
-      </HeaderContainer>
-      
-      <Overlay isOpen={mobileMenuOpen} onClick={() => setMobileMenuOpen(false)} />
+            Home
+          </NavLink>
+          <NavLink 
+            href="#about" 
+            $isActive={activeSection === 'about'}
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection('about');
+            }}
+          >
+            About
+          </NavLink>
+        </Nav>
+        
+        <MobileButton onClick={() => setMobileMenuOpen(true)}>
+          ☰
+        </MobileButton>
+      </NavContainer>
       
       <MobileMenu isOpen={mobileMenuOpen}>
-        <CloseButton 
-          onClick={() => setMobileMenuOpen(false)}
-          aria-label="Закрыть меню"
-        >
+        <CloseButton onClick={() => setMobileMenuOpen(false)}>
           ×
         </CloseButton>
         <MobileNav>
           <MobileNavLink 
             href="#hero" 
-            $isActive={activeSection === 'hero'} 
-            onClick={(e) => { e.preventDefault(); scrollToSection('hero'); }}
+            $isActive={activeSection === 'hero'}
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection('hero');
+            }}
           >
-            Главная
+            Home
           </MobileNavLink>
           <MobileNavLink 
             href="#about" 
-            $isActive={activeSection === 'about'} 
-            onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}
+            $isActive={activeSection === 'about'}
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection('about');
+            }}
           >
-            Обо мне
+            About
           </MobileNavLink>
         </MobileNav>
       </MobileMenu>
-    </>
+      
+      <Overlay 
+        isOpen={mobileMenuOpen} 
+        onClick={() => setMobileMenuOpen(false)}
+      />
+    </HeaderContainer>
   );
 }
 

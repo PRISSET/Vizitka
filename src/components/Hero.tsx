@@ -174,7 +174,7 @@ const Button = styled(motion.button)`
   }
 `;
 
-const SecondaryButton = styled.a`
+const SecondaryButton = styled(motion.a)`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -250,6 +250,16 @@ function Hero() {
             <Button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              animate={{ y: [0, -5, 0] }}
+              transition={{ 
+                y: { 
+                  repeat: Infinity, 
+                  repeatType: "loop", 
+                  duration: 1.5, 
+                  repeatDelay: 3.5 
+                },
+                scale: { duration: 0.2 }
+              }}
               onClick={() => {
                 const about = document.getElementById('about');
                 if (about) about.scrollIntoView({ behavior: 'smooth' });
@@ -261,6 +271,18 @@ function Hero() {
               href="https://github.com/yourusername" 
               target="_blank" 
               rel="noopener noreferrer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              animate={{ y: [0, -5, 0] }}
+              transition={{ 
+                y: { 
+                  repeat: Infinity, 
+                  repeatType: "loop", 
+                  duration: 1.5, 
+                  repeatDelay: 3.5 
+                },
+                scale: { duration: 0.2 }
+              }}
             >
               GitHub
             </SecondaryButton>

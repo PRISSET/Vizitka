@@ -1,16 +1,16 @@
 :root {
-  --primary-color: #3498db;
-  --secondary-color: #2ecc71;
-  --accent-color: #e74c3c;
-  --background-color: #0a1128;
+  --primary-color: #b71c1c;
+  --secondary-color: #8e0000;
+  --accent-color: #ff5252;
+  --background-color: #0a0000;
   --text-color: #fff;
   --light-text-color: #e0e0e0;
-  --card-background: rgba(23, 32, 56, 0.7);
+  --card-background: rgba(23, 0, 0, 0.6);
   --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
   --transition-speed: 0.3s;
   --font-main: 'Poppins', sans-serif;
   --font-heading: 'Montserrat', sans-serif;
-  --blur-background: rgba(23, 32, 56, 0.45);
+  --blur-background: rgba(23, 0, 0, 0.38);
 }
 
 * {
@@ -80,7 +80,7 @@ img {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-radius: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(183, 28, 28, 0.15);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   padding: 2rem;
 }
@@ -131,7 +131,7 @@ img {
     padding: 1.2rem;
     margin: 0 0.5rem !important;
     backdrop-filter: blur(8px) !important;
-    background: rgba(23, 32, 56, 0.6) !important;
+    background: rgba(23, 0, 0, 0.51) !important;
   }
   
   h1 {
@@ -182,7 +182,7 @@ img {
     width: 100% !important;
     max-width: 100% !important;
     margin: 0 auto !important;
-    background: rgba(23, 32, 56, 0.6) !important;
+    background: rgba(23, 0, 0, 0.51) !important;
   }
 }
 

@@ -168,6 +168,23 @@ const SocialLinks = styled.div`
       color: #fff;
       transform: translateY(-3px);
     }
+    
+    &.bounce {
+      animation: bounce 1s ease infinite;
+      animation-play-state: paused;
+    }
+  }
+  
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-8px);
+    }
+    60% {
+      transform: translateY(-4px);
+    }
   }
 `;
 
@@ -353,9 +370,48 @@ function ContactForm() {
             </ContactItem>
             
             <SocialLinks>
-              <a href="#" aria-label="GitHub">GH</a>
-              <a href="#" aria-label="LinkedIn">LI</a>
-              <a href="#" aria-label="Telegram">TG</a>
+              <motion.a 
+                href="#" 
+                aria-label="GitHub"
+                className="bounce"
+                animate={{ y: [0, -8, 0] }}
+                transition={{ 
+                  repeat: Infinity, 
+                  repeatType: "loop", 
+                  duration: 1.5, 
+                  repeatDelay: 3.5 
+                }}
+              >
+                GH
+              </motion.a>
+              <motion.a 
+                href="#" 
+                aria-label="LinkedIn"
+                className="bounce"
+                animate={{ y: [0, -8, 0] }}
+                transition={{ 
+                  repeat: Infinity, 
+                  repeatType: "loop", 
+                  duration: 1.5, 
+                  repeatDelay: 3.5 
+                }}
+              >
+                LI
+              </motion.a>
+              <motion.a 
+                href="#" 
+                aria-label="Telegram"
+                className="bounce"
+                animate={{ y: [0, -8, 0] }}
+                transition={{ 
+                  repeat: Infinity, 
+                  repeatType: "loop", 
+                  duration: 1.5, 
+                  repeatDelay: 3.5 
+                }}
+              >
+                TG
+              </motion.a>
             </SocialLinks>
           </ContactInfo>
           
